@@ -395,7 +395,9 @@ body {
 }
 
 .actions {
-  margin-top: 18px
+  margin-top: 18px;
+  display: flex;
+  gap: 8px;
 }
 
 /* Benefits section (features left, image right) */
@@ -501,6 +503,8 @@ body {
   border: 1px solid transparent;
   font-weight: 700;
   transition: all 0.3s ease;
+  min-width: 120px;
+  text-align: center;
 }
 
 .btn.primary {

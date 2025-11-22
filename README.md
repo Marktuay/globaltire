@@ -1,134 +1,258 @@
-# GlobalTire — Site (Mockup)
+# GlobalTire — Professional Automotive Website
 
-Static site (mockup) with dark theme inspired by https://chromium.themes.zone/tires/
+Modern, responsive website for GlobalTire automotive services with dark theme, smooth animations, and professional design.
 
-Root working folder: `website/`
-
-## Main Structure
-
-- `index.html` — Main HTML (header, hero, catalog, services, footer)
-- `css/style.css` — Dark theme styles
-- `js/main.js` — Mobile menu and overlay controller
-- `images/` — Images (placeholders and, once generated, optimized WebP/AVIF)
-- `scripts/` — Utilities: download/optimization and variant generation
-
-## How to Test Locally
-
-Requirements (macOS): `python3` (for simple server). Optional: `brew`, `cwebp`, `magick` (ImageMagick), `avifenc`.
-
-1. Start a local server from the `website` folder:
-
-```bash
-cd website
-python3 -m http.server 8000
-# open http://localhost:8000
-```
-
-2. Available scripts:
-
-- `scripts/download_and_optimize_images.sh` — Downloads images from Unsplash and converts them to WebP (uses `cwebp`).
-- `scripts/generate_variants.sh` — Generates variants (WebP/AVIF) from `*-original.jpg` files in `images/` using ImageMagick/cwebp/avifenc depending on availability.
-
-Example:
-
-```bash
-# download and convert Unsplash -> webp
-bash scripts/download_and_optimize_images.sh
-
-# or, if you've placed originals in images/, generate variants
-bash scripts/generate_variants.sh
-```
-
-## Image Specifications (for later replacement)
-
-Below are the recommendations for formats, sizes, quality, and naming so that images are optimal and responsive.
-
-Proposed naming convention
-
-- Hero: `images/hero-1600.webp`, `images/hero-1200.webp`, `images/hero-900.webp`, `images/hero-600.webp`
-- Products: `images/prod-1-800.webp`, `images/prod-1-400.webp`, `images/prod-1-200.webp` (and similar for prod-2, prod-3, prod-4)
-- Originals (masters): `images/hero-original.jpg`, `images/prod-1-original.jpg`, etc. (save the masters in case you need to regenerate)
-- Logos: `images/logo.svg` (preferable). If raster: `images/logo-256.png` and `images/logo-64.png`
-- Favicons: `favicon-32.png`, `apple-touch-180.png`, `favicon.ico`
-
-Recommendations by type
-
-- Hero (main)
-  - Aspect ratio: 16:9 or 3:2
-  - Sizes (w descriptors): 1600w, 1200w, 900w, 600w
-  - Formats: AVIF (best), WebP (wide), fallback SVG/PNG
-  - Quality: WebP q=80, AVIF q~50-60
-  - Suggested sizes attribute: `(min-width:1100px) 600px, (min-width:680px) 50vw, 100vw`
-
-- Product (cards)
-  - Aspect ratio: 4:3 or 16:9 (consistent)
-  - Sizes: 800w, 400w, 200w
-  - Formats: WebP, AVIF (optional)
-  - Quality: WebP q=75-80, AVIF q=50
-  - Suggested sizes: `(min-width:1100px) 25vw, (min-width:680px) 50vw, 100vw`
-
-- Thumbnails / small
-  - Sizes: 320w, 160w
-  - Format: WebP q=70
-
-- Logos and icons
-  - Preferable: SVG (vector)
-  - If raster: PNG and WebP at 256px and 64px
-
-- Favicons
-  - apple-touch-icon: 180x180 PNG
-  - favicon PNG: 192x192, 32x32, 16x16
-  - favicon.ico containing 16x16 and 32x32
-
-Quick commands to generate variants (macOS)
-
-- Using `cwebp` (install with `brew install webp`):
-
-```bash
-# convert and resize
-cwebp -q 80 -resize 1600 0 images/hero-original.jpg -o images/hero-1600.webp
-cwebp -q 80 -resize 1200 0 images/hero-original.jpg -o images/hero-1200.webp
-cwebp -q 80 -resize 800 0 images/prod-1-original.jpg -o images/prod-1-800.webp
-cwebp -q 80 -resize 400 0 images/prod-1-original.jpg -o images/prod-1-400.webp
-```
-
-- Using ImageMagick if it has webp/avif support (`magick`):
-
-```bash
-magick images/hero-original.jpg -resize 1600x -quality 85 images/hero-1600.webp
-magick images/prod-1-original.jpg -resize 800x -quality 80 images/prod-1-800.webp
-```
-
-- Generate AVIF with `avifenc` (optional, install with `brew install libavif`):
-
-```bash
-magick images/hero-original.jpg -resize 1600x tmp-hero-1600.jpg
-avifenc --min 30 --max 40 tmp-hero-1600.jpg images/hero-1600.avif
-rm tmp-hero-1600.jpg
-```
-
-HTML usage examples (hero with avif/webp fallback and sizes)
-
-```html
-<picture>
-  <source type="image/avif" srcset="images/hero-1600.avif 1600w, images/hero-1200.avif 1200w, images/hero-900.avif 900w, images/hero-600.avif 600w">
-  <source type="image/webp" srcset="images/hero-1600.webp 1600w, images/hero-1200.webp 1200w, images/hero-900.webp 900w, images/hero-600.webp 600w">
-  <img src="images/hero-900.webp" alt="Hero" loading="lazy" sizes="(min-width:1100px) 600px, (min-width:680px) 50vw, 100vw">
-</picture>
-```
-
-Notes and best practices
-
-- Keep the originals (masters) in `images/originals/` to regenerate with different parameters.
-- Use names with hyphens and lowercase. Avoid spaces.
-- Version assets by changing names or using hash in production for cache busting.
-- Add `loading="lazy"` for non-critical images.
+**Live Demo:** Start local server with `python3 -m http.server 8000` from the `website/` folder.
 
 ---
 
-If you want, I can:
+## 🎨 Features
 
-- Create and save the originals in `images/` if you give me the URLs (I can't download from this environment), or
-- Automatically generate the complete `<picture>` tags in `index.html` after you run `scripts/generate_variants.sh` and confirm the files exist.
+### Design & UX
+- **Dark Theme** with premium color palette (deep blue background, yellow accents)
+- **Smooth Animations** - Fade-in, slide-in effects on scroll
+- **Responsive Design** - Optimized for desktop, tablet, and mobile
+- **Modern UI** - Glassmorphism effects, rounded corners, subtle shadows
+- **Accessibility** - Semantic HTML, ARIA labels, keyboard navigation
 
-Tell me which you prefer and I'll continue.
+### Sections
+
+1. **Hero Section**
+   - Eye-catching headline with call-to-action buttons
+   - Professional tire image
+   - Smooth scroll navigation
+
+2. **Products Catalog** (4 Premium Tires)
+   - All-Season X1
+   - OffRoad Pro
+   - EcoDrive
+   - Performance R
+   - Each with image, description, price, and "View" button
+
+3. **Services** (8 Professional Services)
+   - Oil Changes
+   - Batteries
+   - Brake Repair
+   - Engine Diagnostics
+   - Tire Services
+   - Preventative Maintenance
+   - Transmission Services
+   - Belts & Hoses
+   - Each service includes professional image and description
+
+4. **About Us**
+   - Company commitment and values
+   - "Why Choose Us" section with 5 key differentiators
+   - Professional team image
+   - Highlights: Certified technicians, top-quality brands (Goodyear, Dunlop, Kelly), competitive pricing
+
+5. **Benefits Section**
+   - Expert installation
+   - Premium brands
+   - Guaranteed fitment
+   - Professional mechanic image
+
+6. **Location Section**
+   - Google Maps integration (3/4 width)
+   - Contact information panel (1/4 width)
+     - Address: 831 Harrison Avenue, New Jersey, 07032
+     - Phone: +201 991 1200
+     - Email: globalautocenterinc@gmail.com
+   - Icons for each contact method
+
+7. **Footer**
+   - Contact form with validation
+   - Useful links with SVG icons
+   - Contact information with business hours
+   - Social media links
+
+### Interactive Features
+
+- **Form Validation** - Real-time validation for contact form
+  - Required fields: Name, Last Name, Email, Message
+  - Email format validation
+  - Phone number validation (optional)
+  - Visual error feedback
+  - Success message on submission
+
+- **Smooth Scrolling** - Internal anchor links scroll smoothly
+- **Mobile Menu** - Responsive hamburger menu with overlay
+- **Hover Effects** - Cards, buttons, and links have smooth transitions
+- **Footer Icons** - All footer links include relevant SVG icons with hover animations
+
+---
+
+## 📁 Project Structure
+
+```
+website/
+├── index.html              # Main HTML file
+├── css/
+│   └── style.css          # All styles (dark theme, animations, responsive)
+├── js/
+│   └── main.js            # Form validation, smooth scroll, mobile menu
+├── images/
+│   ├── logo1.png          # GlobalTire logo
+│   ├── favicon.png        # Site favicon
+│   ├── hero-original.png  # Hero section image
+│   ├── prod-1-original.png through prod-4-original.png  # Product images
+│   ├── benefits-original.png  # Benefits section image
+│   ├── about-us.png       # About Us team image
+│   └── service-*.png      # 8 service images
+├── scripts/
+│   ├── download_and_optimize_images.sh
+│   └── generate_variants.sh
+└── README.md              # This file
+```
+
+---
+
+## 🚀 Quick Start
+
+### Local Testing
+
+1. Navigate to the website folder:
+```bash
+cd /Users/macbookpro/Desktop/mock-globaltire/website
+```
+
+2. Start a local server:
+```bash
+python3 -m http.server 8000
+```
+
+3. Open in browser:
+```
+http://localhost:8000
+```
+
+### What to Test
+
+- ✅ Scroll through all sections to see animations
+- ✅ Hover over product cards and buttons
+- ✅ Click navigation links (smooth scroll)
+- ✅ Try the contact form (with/without valid data)
+- ✅ Hover over footer links to see icon animations
+- ✅ Test on mobile (resize browser or use dev tools)
+- ✅ Check the Google Maps integration
+
+---
+
+## 🎯 Key Improvements Made
+
+### Images
+- Generated 13 professional images:
+  - 1 hero image
+  - 4 product images
+  - 1 benefits image
+  - 1 about us team image
+  - 7 service images
+  - 1 favicon
+- All images optimized for web
+
+### CSS Enhancements
+- Added smooth scroll behavior
+- Implemented fade-in/slide-in animations
+- Enhanced card hover effects (lift + shadow)
+- Improved button transitions with scale effects
+- Added footer icon styles with hover animations
+- Created responsive grid layouts for services and location
+- Implemented 3/4 + 1/4 layout for map section
+
+### JavaScript Features
+- Form validation with real-time feedback
+- Email and phone pattern validation
+- Smooth scroll for internal links
+- Mobile menu functionality
+- Error message clearing on input
+
+### New Sections
+- **Services Grid**: 8 services in 4-column responsive grid
+- **About Us**: Company information with mission and values
+- **Location**: Google Maps + contact info panel
+
+---
+
+## 🎨 Design System
+
+### Colors
+- **Background**: `#020617` (Deep blue-black)
+- **Surface**: `#0f172a` (Dark blue)
+- **Accent**: `#ffcc26` (Yellow)
+- **Text**: `#ffffff` (White)
+- **Muted**: `rgba(255, 255, 255, 0.72)` (Light gray)
+
+### Typography
+- **Font**: System fonts (optimized for performance)
+- **Headings**: Bold, large sizes
+- **Body**: 16px base, 1.6 line-height
+
+### Spacing
+- **Sections**: 64px padding (top/bottom)
+- **Grid gaps**: 24-32px
+- **Card padding**: 20-24px
+
+---
+
+## 📱 Responsive Breakpoints
+
+- **Desktop**: > 1100px (4-column grids)
+- **Tablet**: 680px - 1100px (2-column grids)
+- **Mobile**: < 680px (1-column, stacked layout)
+
+---
+
+## 🔧 Image Optimization (Optional)
+
+If you want to generate WebP/AVIF variants for better performance:
+
+### Using the provided scripts:
+
+```bash
+# Generate variants from *-original.png files
+bash scripts/generate_variants.sh
+```
+
+### Manual optimization:
+
+```bash
+# Install tools (macOS)
+brew install webp imagemagick libavif
+
+# Convert to WebP
+cwebp -q 80 images/hero-original.png -o images/hero.webp
+
+# Convert to AVIF
+magick images/hero-original.png -resize 1600x tmp.jpg
+avifenc --min 30 --max 40 tmp.jpg images/hero.avif
+rm tmp.jpg
+```
+
+---
+
+## 📝 Notes
+
+- All images are currently PNG format for simplicity
+- Form submission is client-side only (no backend)
+- Google Maps uses embedded iframe (requires internet connection)
+- All icons are inline SVG for performance
+- No external dependencies (vanilla JS/CSS)
+
+---
+
+## 🌟 Credits
+
+- **Design Inspiration**: Modern automotive websites
+- **Color Scheme**: Dark theme with yellow accents
+- **Icons**: Custom SVG icons
+- **Images**: AI-generated professional automotive images
+
+---
+
+## 📄 License
+
+This is a mockup/demo project for GlobalTire.
+
+---
+
+**Last Updated**: November 2025
